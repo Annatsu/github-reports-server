@@ -23,7 +23,8 @@
   "homepage": "https://github.com/Annatsu/github-reports-server#readme",
   "dependencies": {
     "fastify": "^1.13.1",
-    "fastify-swagger": "^0.16.1"
+    "fastify-swagger": "^0.16.1",
+    "mongoose": "^5.3.15"
   },
   "devDependencies": {
     "nodemon": "^1.18.7"
