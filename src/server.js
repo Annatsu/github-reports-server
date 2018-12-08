@@ -1,6 +1,7 @@
 // Node Modules
 const fastify = require('fastify')({
     logger: true,
+    ignoreTrailingSlash: true,
 });
 
 // Fastify Plugins
