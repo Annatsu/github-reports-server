@@ -7,7 +7,7 @@ module.exports =
     (fastify, options, next) => {
         fastify.route({
             method: 'GET',
-            url: '/:repositoryName',
+            url: '/:repositoryId',
             handler: repositoryController.getSingleRepository,
         });
 
