@@ -77,6 +77,12 @@ const queryConditionTranslators = {
 
     minForks: makeRangeCondition('forks', '$gte'),
     maxForks: makeRangeCondition('forks', '$lte'),
+
+    minLanguages: makeRangeCondition('languagesCount', '$gte'),
+    maxLanguages: makeRangeCondition('languagesCount', '$lte'),
+
+    minWatchers: makeRangeCondition('watchersCount', '$gte'),
+    maxWatchers: makeRangeCondition('watchersCount', '$lte'),
 };
 
 const queryOptionTranslators = {

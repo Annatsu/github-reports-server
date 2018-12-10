@@ -8,6 +8,8 @@ const repositorySchema = new mongoose.Schema({
     description: String,
     languages: [String],
     watchers: [String],
+    languagesCount: Number,
+    watchersCount: Number,
     stars: Number,
     forks: Number,
 });
