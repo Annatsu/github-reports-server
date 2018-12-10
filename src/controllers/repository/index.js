@@ -12,7 +12,7 @@ const makeGetRepositoriesByFilter = require('./get_repositories_by_filter');
  * 
  * @function mongoGetRepositoryById
  * 
- * @param {string} name - the name identifier of the repository to fetch.
+ * @param {string} id - the `_id` property of the repository to fetch.
  * 
  * @returns {(object|null)}
  */
