@@ -9,6 +9,9 @@ const Repository = require('./models/Repository');
 // The location path of the database.
 const DATABASE_URL = 'mongodb://localhost/github-search-db';
 
+// API token secret.
+const OAUTH_TOKEN = process.env.OAUTH_TOKEN;
+
 
 
 module.exports =
@@ -21,7 +24,7 @@ module.exports =
                 // Count the number of existing repositories.
                 // If the list of repos is not populated with, at least, 1000 documents
                 // populate it.
-                const documentsCount = Repository.countDocuments();
+                const documentsCount = await Repository.countDocuments();
                 if (documentsCount >= 1000)
                     return resolve();
 
@@ -40,34 +43,38 @@ module.exports =
 
 const fetchRepositories =
     async (since, count = 0) => {
-        console.log(`${count / 10}% - Fetching repositories`);
+        console.log(`Fetched ${count} repositories...`);
 
         if (parseInt(count, 10) >= 1000)
             return [];
 
-        const queryParam = since ? `?since=${since}` : '';
+        const queryParam = `?access_token=${OAUTH_TOKEN}` + (since ? `&since=${since}` : '');
         const { data } = await axios.get(`https://api.github.com/repositories${queryParam}`);
         const lastRepo = data[data.length - 1];
 
-        const fetchReposPromises = data.map((repo) => fetchSingleRepository(repo.full_name));
-        const sanitizedRepositories = await Promise.all(fetchReposPromises).then(sanitizeRepositoryList);
+        const fetchRepositoriesPromises = data.map((repo) => fetchSingleRepository(repo.full_name));
+        const repositories = await Promise.all(fetchRepositoriesPromises)
+            .then((repositories) => repositories.filter(Boolean))
+            .then((repositories) => repositories.map(sanitizeRepositoryObject));
 
-        return sanitizedRepositories.concat(await fetchRepositories(lastRepo.id, count + 100));
+        return repositories.concat(await fetchRepositories(lastRepo.id, count + repositories.length));
     };
 
 
 
 const fetchSingleRepository =
-    (repositoryName) => {
-        return axios.get(`https://api.github.com/repos/${repositoryName}`)
-            .then(({ data }) => {
-                data.languagesArray = [data.language];
-                return data;
-            });
-    };
+    async (repositoryName) => {
+        let returnVal = null;
+        try {
+            const res = await axios.get(`https://api.github.com/repos/${repositoryName}?access_token=${OAUTH_TOKEN}`);
+            res.data.languagesArray = [res.data.language];
+            returnVal = res.data;
+        } catch (err) {
+            console.error(err);
+        }
 
-const sanitizeRepositoryList =
-    (repositories) => repositories.map((repo) => sanitizeRepositoryObject(repo));
+        return returnVal;
+    };
 
 
 

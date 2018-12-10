@@ -1,0 +1,5 @@
+{
+    "env": {
+        "OAUTH_TOKEN": "YOUR_OAUTH_TOKEN_HERE"
+    }
+}
