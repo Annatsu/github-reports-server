@@ -60,12 +60,9 @@ const fetchRepositories =
 const fetchSingleRepository =
     (repositoryName) => {
         return axios.get(`https://api.github.com/repos/${repositoryName}`)
-            .then(({ data: repositoryData }) => {
-                return axios.get(repositoryData.languages_url)
-                    .then(({ data: languagesData }) => {
-                        repositoryData.languagesArray = Object.keys(languagesData);
-                        return repositoryData;
-                    });
+            .then(({ data }) => {
+                data.languagesArray = [data.language];
+                return data;
             });
     };
 
