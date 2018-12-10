@@ -7,7 +7,7 @@
  **/
 const repositoryNotFoundError = {
     error: true,
-    errorMessage: 'Repository not found!',
+    errorMessage: 'No repository found!',
 };
 
 
