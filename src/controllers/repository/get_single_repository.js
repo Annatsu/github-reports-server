@@ -6,7 +6,7 @@ const {
 
 /**
  * @typedef {object} makeGetSingleRepositoryDependencies
- * @property {function} getRepoByNameStrategy - a function that accepts a repository name and returns an object
+ * @property {function} getRepoByIdStrategy - a function that accepts a repository id and returns an object
  * with it's data if found, null otherwise.
  */
 
@@ -21,15 +21,22 @@ const {
 * @returns {function}
 */
 const makeGetSingleRepository =
-    ({ getRepoByNameStrategy }) => (req, res) => {
-        const { repositoryName } = req.params;
+    ({ getRepoByIdStrategy }) => (req, res) => {
+        const { repositoryId } = req.params;
 
-        getRepoByNameStrategy(repositoryName)
+        getRepoByIdStrategy(repositoryId)
             .then((repository) => {
                 if (!repository)
                     res.code(404).send(repositoryNotFoundPayload);
                 else
                     res.code(200).send(makeSuccessPayload(repository));
+            })
+            .catch((err) => {
+                console.error(err);
+                res.code(500).send({
+                    error: true,
+                    errorMessage: err,
+                });
             });
     };
 

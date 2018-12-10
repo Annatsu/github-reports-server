@@ -8,21 +8,21 @@ const makeGetRepositoriesByFilter = require('./get_repositories_by_filter');
 
 
 /**
- * MongoDB strategy of getting a single repository by it's name.
+ * MongoDB strategy of getting a single repository by it's id.
  * 
- * @function mongoGetRepositoryByName
+ * @function mongoGetRepositoryById
  * 
  * @param {string} name - the name identifier of the repository to fetch.
  * 
  * @returns {(object|null)}
  */
-const mongoGetRepositoryByName =
-    (name) => Repository.findOne({ name });
+const mongoGetRepositoryById =
+    (id) => Repository.findById(id);
 
 
 
 module.exports = {
-    getSingleRepository: makeGetSingleRepository({ getRepoByNameStrategy: mongoGetRepositoryByName }),
+    getSingleRepository: makeGetSingleRepository({ getRepoByIdStrategy: mongoGetRepositoryById }),
     getRepositories: makeGetRepositoriesByFilter(),
 
     // Include Factory Functions for testability purposes
