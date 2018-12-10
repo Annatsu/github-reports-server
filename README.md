@@ -153,3 +153,4 @@ The `watchers` param is striked for a reason. The Github API only lets some thou
 - [ ] As of now, every repository stored has an array of languages of size 1. This is because we would have to, once again, multiply the number of requests by `1000`. It would be better to do this without the risk of getting the *OAUTH* token blocked.
 - [ ] Write a frontend UI to mess around with querying and displaying repositories. Also, to display a lot of sliders; who doesn't love sliders?
 - [ ] Create a database singleton and inject it in everything that needs interaction with the database as a facade. This would abstract database interaction and make the app more scalable and mantainable.
+- [ ] [`/src/controllers/repository/get_repositories_by_filter.js`](./src/controllers/repository/get_repositories_by_filter.js) can be functional, well structured and modularized. But, please, document it.
