@@ -16,7 +16,7 @@ module.exports =
         // Connect to DB
         mongoose.connect(DATABASE_URL)
             .then(async () => {
-                console.log('MongoDB connected…')
+                console.log('MongoDB connected…');
 
                 // Count the number of existing repositories.
                 // If the list of repos is not populated with, at least, 1000 documents
@@ -48,8 +48,6 @@ const fetchRepositories =
         const queryParam = since ? `?since=${since}` : '';
         const { data } = await axios.get(`https://api.github.com/repositories${queryParam}`);
         const lastRepo = data[data.length - 1];
-
-        console.log('data', data)
 
         const fetchReposPromises = data.map((repo) => fetchSingleRepository(repo.full_name));
         const sanitizedRepositories = await Promise.all(fetchReposPromises).then(sanitizeRepositoryList);
