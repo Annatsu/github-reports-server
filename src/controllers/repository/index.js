@@ -1,9 +1,9 @@
 // Repository Schema
-const Repository = require('../models/Repository');
+const Repository = require('../../models/Repository');
 
 // Controller behavior factories
 const makeGetSingleRepository = require('./get_single_repository');
-const makeGetRepositories = require('./get_repositories');
+const makeGetRepositoriesByFilter = require('./get_repositories_by_filter');
 
 
 
@@ -23,11 +23,11 @@ const mongoGetRepositoryByName =
 
 module.exports = {
     getSingleRepository: makeGetSingleRepository({ getRepoByNameStrategy: mongoGetRepositoryByName }),
-    getRepositories: makeGetRepositories(),
+    getRepositories: makeGetRepositoriesByFilter(),
 
     // Include Factory Functions for testability purposes
     factories: {
         makeGetSingleRepository,
-        makeGetRepositories,
+        makeGetRepositoriesByFilter,
     }
 };
