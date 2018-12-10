@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 // Define the repository schema.
 const repositorySchema = new mongoose.Schema({
+    owner: String,
     name: String,
     description: String,
     languages: [String],

@@ -17,7 +17,9 @@ const makeGetRepositories =
         const queryOptions = createQueryOptions(req.query);
 
 
-        console.log('query', req.query, queryConditions, queryOptions);
+        console.log('query', req.query);
+        console.log('queryConditions', queryConditions);
+        console.log('queryOptions', queryOptions);
 
 
         Repository
@@ -68,6 +70,9 @@ const makeArrayContainCondition =
 const queryConditionTranslators = {
     name: (_, repoName) =>
         ['name', new RegExp(escapeString(repoName), 'i')],
+
+    author: (_, authorName) =>
+        ['owner', authorName],
 
     languages: makeArrayContainCondition('languages'),
     watchers: makeArrayContainCondition('watchers'),
