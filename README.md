@@ -146,7 +146,7 @@ Since the only needed param for the `/repository` endpoint is a valid document i
 The `watchers` param is striked for a reason. The Github API only lets some thousands of requests in, and, as far as implementation goes, if we were to fetch the repository, languages and watchers, there would be a minimum of 3000 requests. This would most probably make your *OAUTH* token blocked for an hour, which is not good. So, the code is there, we just don't fetch it.
 
 
-## Implementation Checklist
+## Future Implementation Checklist
 
 - [ ] Use dependency injection with a facade for the multiple filter endpoint controller, just like the more simpler, find by id endpoint.
 - [ ] Write unit test for the controllers.
